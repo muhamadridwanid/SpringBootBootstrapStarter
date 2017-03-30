@@ -6,7 +6,7 @@ Beberapa fiturnya antara lain :
 
 *  Form Login
 *  Multi Role 
-*  Auth dengan UserdetailService
+*  Auth dengan UserdetailsService
 *  Validasi
 *  Integrasi bootstrap
 
