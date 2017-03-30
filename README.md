@@ -18,6 +18,10 @@ Kebutuhan Software
 
 Cara Penggunaan
 ===============
-
 1. Clone dulu repository ini
 2. Build menggunakan maven
+
+Lisensi Penggunaan
+==================
+Under MIT license - http://www.opensource.org/licenses/mit-license.php
+
