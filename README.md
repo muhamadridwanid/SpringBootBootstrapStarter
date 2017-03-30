@@ -1,6 +1,6 @@
 Spring Boot + Bootstrap Starter Project
 
-Deskripsi
+### Deskripsi
 =========
 Starter project untuk project berbasis spring dan bootstrap.
 Beberapa fiturnya antara lain : 
@@ -11,17 +11,17 @@ Beberapa fiturnya antara lain :
 *  Validasi
 *  Integrasi bootstrap
 
-Kebutuhan Software
+### Kebutuhan Software
 ==================
 *  Java SDK versi 6
 *  Maven versi 2
 
-Cara Penggunaan
+### Cara Penggunaan
 ===============
 1. Clone dulu repository ini
 2. Build menggunakan maven
 
-Lisensi Penggunaan
+### Lisensi Penggunaan
 ==================
 Under MIT license - http://www.opensource.org/licenses/mit-license.php
 
