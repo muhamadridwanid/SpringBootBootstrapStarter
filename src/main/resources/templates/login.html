@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spring Security Example</title>
+        <link th:href="@{/assets/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/assets/app.css}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tengah">
+                        <form th:action="@{/login}" th:method="post" class="form-horizontal" role="form">
+                            <h4>Please Login</h4>
+                            <hr/>
+                            <div class="alert alert-dismissable alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
+                                ${param.error}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="username">Username:</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="username" placeholder="User Name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3" for="password">Password:</label>
+                                <div class="col-md-9">
+                                    <input type="password" class="form-control" name="password" placeholder="Password" />
+                                </div>
+                            </div> 
+                            <div>
+                                <input type="submit" value="Sign In" class="btn btn-primary pull-right" />
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

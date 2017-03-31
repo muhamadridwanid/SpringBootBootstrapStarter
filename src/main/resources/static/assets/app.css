@@ -1,0 +1,21 @@
+body{
+    background:#edecec;
+}
+
+hr{
+    margin-bottom: 8%;
+}
+
+h4{
+    margin-top: 1px;
+    color: #c12e2a;
+}
+.tengah{
+    padding: 35px 35px 80px;
+    background: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    border-radius: 5px;
+    border: 1px solid #31b0d5;
+    position: relative;
+    margin: 8% 30%;
+}

@@ -5,15 +5,11 @@
 package id.muhamadridwan.starter.models;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -30,9 +26,6 @@ public class Role implements Serializable, GrantedAuthority {
     @Column(unique = true)
     private String name;
 
-    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Permission> permission;
 
     public Role() {
     }
@@ -49,10 +42,6 @@ public class Role implements Serializable, GrantedAuthority {
         return name;
     }
 
-    public Set<Permission> getPermission() {
-        return permission;
-    }
-
     @Override
     public String getAuthority() {
         return getName();
@@ -60,8 +49,10 @@ public class Role implements Serializable, GrantedAuthority {
 
     @Override
     public String toString() {
-        return "Role{" + "id=" + id + ", name=" + name + ", permission=" + permission + '}';
+        return "Role{" + "id=" + id + ", name=" + name + '}';
     }
+
+
 
     //<editor-fold defaultstate="collapsed" desc="SETTER">
     public void setId(Long id) {
@@ -72,9 +63,6 @@ public class Role implements Serializable, GrantedAuthority {
         this.name = name;
     }
 
-    public void setPermission(Set<Permission> permission) {
-        this.permission = permission;
-    }
 //</editor-fold>
 
 }

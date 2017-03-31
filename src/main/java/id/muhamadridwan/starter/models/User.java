@@ -4,6 +4,7 @@
  */
 package id.muhamadridwan.starter.models;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,10 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.LazyCollection;
@@ -61,14 +60,22 @@ public class User implements UserDetails {
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
-
+    private Date createdAt;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastAccessedDate;
 
-    private boolean enabled;
+    private boolean accountNonExpired;
 
-    private boolean tokenExpired;
+    private boolean accountNonLocked;
+
+    private boolean credentialsNonExpired;
+
+    private boolean enabled;
+    
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
@@ -76,6 +83,11 @@ public class User implements UserDetails {
 
     //Constructor
     public User() {
+        this.createdAt = Calendar.getInstance().getTime();
+        this.enabled = true;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
     }
 
     public User(String username, String password, String firstname, String lastname, String email) {
@@ -84,7 +96,11 @@ public class User implements UserDetails {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.tokenExpired = false;
+        this.createdAt = Calendar.getInstance().getTime();
+        this.enabled = true;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
     }
 
     public Long getId() {
@@ -103,20 +119,16 @@ public class User implements UserDetails {
         return email;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
     public Date getLastAccessedDate() {
         return lastAccessedDate;
-    }
-
-    public boolean isTokenExpired() {
-        return tokenExpired;
-    }
-
-    public Set<Role> getRoles() {
-        return role;
     }
 
     @Override
@@ -132,51 +144,60 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.addAll(getRoles());
-        authorities.addAll(getPermissions());
+        authorities.addAll(getRole());
         return authorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return accountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return credentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        this.enabled = true;
-        return this.enabled;
+        return enabled;
     }
 
-    //Other
-    @Transient
-    public Set<Permission> getPermissions() {
-        Set<Permission> permissions = new HashSet<>();
-        role.forEach((role) -> {
-            permissions.addAll(role.getPermission());
-        });
-
-        return permissions;
+    public Set<Role> getRole() {
+        return role;
     }
 
-    @PrePersist
-    protected void onCreate() {
-        setCreationDate(new Date());
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", creationDate=" + creationDate + ", lastAccessedDate=" + lastAccessedDate + ", enabled=" + enabled + ", tokenExpired=" + tokenExpired + ", roles=" + role + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname 
+                + ", email=" + email + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", lastAccessedDate=" 
+                + lastAccessedDate + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked=" + accountNonLocked 
+                + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + ", role=" + role + '}';
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
     }
 
     public void setId(Long id) {
@@ -203,10 +224,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public void setLastAccessedDate(Date lastAccessedDate) {
         this.lastAccessedDate = lastAccessedDate;
     }
@@ -214,13 +231,4 @@ public class User implements UserDetails {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    public void setTokenExpired(boolean tokenExpired) {
-        this.tokenExpired = tokenExpired;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.role = roles;
-    }
-
 }

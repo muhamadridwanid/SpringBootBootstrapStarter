@@ -29,15 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
-    
-    
+      
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests().antMatchers("/").permitAll().and()
-                .authorizeRequests().antMatchers("/console/*").hasAuthority("ROLE_ADMIN");
-        http.formLogin();
+                .authorizeRequests().antMatchers("/console/*").hasAuthority("ROLE_ADMIN");      
         
+        http.formLogin();
         
         http.csrf().disable();
         http.headers().frameOptions().disable();

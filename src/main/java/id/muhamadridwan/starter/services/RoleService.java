@@ -4,9 +4,9 @@
  */
 package id.muhamadridwan.starter.services;
 
-import id.muhamadridwan.starter.models.Permission;
 import id.muhamadridwan.starter.models.Role;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 
 /**
  *
@@ -14,18 +14,16 @@ import java.util.List;
  */
 public interface RoleService {
 
-    void addRole(Role role);
+    void addRole(Role role) throws NullPointerException;
 
-    void updateRole(Role role);
+    void updateRole(Role role) throws NullPointerException, EntityNotFoundException;
 
-    void deleteRole(Long id);
+    void deleteRole(Long id) throws NullPointerException, EntityNotFoundException;
 
-    Role getRole(Long id);
+    Role getRole(Long id) throws NullPointerException, EntityNotFoundException;
 
-    Role getRole(String roleName);
+    Role getRole(String roleName) throws NullPointerException, EntityNotFoundException;
 
     List<Role> getRoles();
-
-    void assignPermissionToRole(Permission permission, Role role);
 
 }

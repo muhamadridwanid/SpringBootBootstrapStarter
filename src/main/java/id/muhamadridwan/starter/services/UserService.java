@@ -4,9 +4,11 @@
  */
 package id.muhamadridwan.starter.services;
 
+
 import id.muhamadridwan.starter.models.Role;
 import id.muhamadridwan.starter.models.User;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -15,18 +17,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface UserService extends UserDetailsService {
 
-    User getUser(Long userId);
+    User getUser(Long userId) throws NullPointerException, EntityNotFoundException;
 
-    User getUser(String username);
+    User getUser(String username) throws NullPointerException, EntityNotFoundException;
 
-    void addUser(User user);
+    void addUser(User user) throws NullPointerException;
 
-    void updateUser(User user);
+    void updateUser(User user) throws NullPointerException, EntityNotFoundException;
 
-    void deleteUser(Long userId);
+    void deleteUser(Long userId) throws NullPointerException, EntityNotFoundException;
 
     List<User> getUser();
 
-    void assignRoleToUser(Role role, User user);
+    void assignRoleToUser(Role role, User user) throws NullPointerException, EntityNotFoundException;
 
 }
